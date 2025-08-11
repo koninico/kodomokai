@@ -3,6 +3,7 @@ function myFunction() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   //シート「連絡先(添付あり)」の取得
   const sheet = ss.getSheetByName('連絡先（添付あり）'); //添付ファイルないときは（添付あり）を削除する！！
+  const logSheetName = '送信ログ';
 
   // 各列の番号を定義
   const firstRow = 2;//連絡先データの開始行番号
