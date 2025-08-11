@@ -18,7 +18,7 @@ function 集計して別シートに出力() {
 
   rows.forEach(row => {
     let guardianRaw = row[保護者名Index];//○○から
-    if (!guardianRaw) return;//値なしで終了
+    if (!guardianRaw) return;//値なしで終了する
 
     const guardian = guardianRaw.toString().trim().replace(/　/g, "");  // 前後トリム＋全角スペース除去
     if (!grouped[guardian]) {//保護者オブジェクトがないときは
