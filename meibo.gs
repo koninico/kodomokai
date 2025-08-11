@@ -1,6 +1,6 @@
 function 集計して別シートに出力() {
-  const sheetName = "名簿";  // 元データのシート名
-  const outputSheetName = "会費集計";  // 出力用シート名
+  const sheetName = "名簿";  // 元データのシート名になる
+  const outputSheetName = "会費集計";  // 出力用シート名になる
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(sheetName);
   const data = sheet.getDataRange().getValues();
