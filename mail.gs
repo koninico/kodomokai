@@ -33,7 +33,16 @@ function myFunction() {
   let logSheet = ss.getSheetByName(logSheetName);
   if (!logSheet) {
     logSheet = ss.insertSheet(logSheetName);
-    logSheet.appendRow(["タイムスタンプ", "児童名", "メールアドレス", "結果", "担当者名", "担当者アドレス", "エラー内容"]);
+    logSheet.appendRow([
+      "タイムスタンプ",
+      "児童名",
+      "メールアドレス",
+      "件名",        // 件名を追加
+      "結果",
+      "担当者名",
+      "担当者アドレス",
+      "エラー内容"
+    ]);
   }
 
   //メール作成・メール送信
@@ -67,6 +76,8 @@ function myFunction() {
       // attachments: [attachmentFile], //添付ファイルの設定、添付ファイルなしの時はコメントアウトする！！
     };
     
+    const timestamp = new Date();
+
     try {
       //メール送信
       GmailApp.sendEmail(to, subject, body, option);
@@ -78,13 +89,13 @@ function myFunction() {
       mailCount++;
 
       // 成功ログ記録
-      logSheet.appendRow([timestamp, name, to, "成功", rep, repadd, ""]);
+      logSheet.appendRow([timestamp, name, to, subject, "成功", rep, repadd, ""]);
 
     } catch (e) {
       // 送信エラー時のログ出力
       console.error(name + "さん（" + to + "）へのメール送信に失敗しました。エラー内容: " + e.message);
       // エラーログ記録
-      logSheet.appendRow([timestamp, name, to, "エラー", rep, repadd, e.message]);
+      logSheet.appendRow([timestamp, name, to, subject, "エラー", rep, repadd, e.message]);
     }
 
   }
