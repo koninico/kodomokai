@@ -28,6 +28,12 @@ function myFunction() {
   // const fileId = '';  
   // const attachmentFile = DriveApp.getFileById(fileId).getBlob();
 
+  // ログシートの準備
+  let logSheet = ss.getSheetByName(logSheetName);
+  if (!logSheet) {
+    logSheet = ss.insertSheet(logSheetName);
+    logSheet.appendRow(["タイムスタンプ", "児童名", "メールアドレス", "結果", "担当者名", "担当者アドレス", "エラー内容"]);
+  }
 
   //メール作成・メール送信
    for(let i = 0; i < contactNum; i++){
@@ -70,9 +76,14 @@ function myFunction() {
       //メール送信件数をインクリメント
       mailCount++;
 
+      // 成功ログ記録
+      logSheet.appendRow([timestamp, name, to, "成功", rep, repadd, ""]);
+
     } catch (e) {
       // 送信エラー時のログ出力
       console.error(name + "さん（" + to + "）へのメール送信に失敗しました。エラー内容: " + e.message);
+      // エラーログ記録
+      logSheet.appendRow([timestamp, name, to, "エラー", rep, repadd, e.message]);
     }
 
   }
